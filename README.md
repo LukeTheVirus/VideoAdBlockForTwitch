@@ -49,6 +49,9 @@ The original author of this extension is "saucettv". This extension will always 
     - `Updated Logos etc.`)
 - v5.7.0
     - `Added Adblock-Timer` (thanks to [@GODrums](https://github.com/GODrums))
+- v5.8.0
+    - `Fixed ads sometimes playing due to multiple workers.`
+    - `Fixed livestream not continuing after ads are over.`
 
 # Credits
 - [@saucettv](https://github.com/saucettv) (original Author)
