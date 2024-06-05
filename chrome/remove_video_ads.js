@@ -525,7 +525,7 @@ async function processM3U8(url, textStr, realFetch, fallbackPlayer) {
         if (encodingsM3U8Cache) {
             if (encodingsM3U8Cache.Value && encodingsM3U8Cache.RequestTime >= Date.now() - EncodingCacheTimeout) {
                 try {
-                    var result = getStreamForResolution(streamInfo, currentResolution, encodingsM3U8Cache.Value, null, fallbackPlayer, realFetch);
+                    const result = getStreamForResolution(streamInfo, currentResolution, encodingsM3U8Cache.Value, null, fallbackPlayer, realFetch);
                     if (result) {
                         return result;
                     }
@@ -543,37 +543,37 @@ async function processM3U8(url, textStr, realFetch, fallbackPlayer) {
         
         if (fallbackPlayer === 'proxy') {
             try {
-                var proxyType = TwitchAdblockSettings.ProxyType ? TwitchAdblockSettings.ProxyType : DefaultProxyType;
-                var encodingsM3u8Response = null;
-                /*var tempUrl = stripUnusedParams(MainUrlByUrl[url]);
+                const proxyType = TwitchAdblockSettings.ProxyType ? TwitchAdblockSettings.ProxyType : DefaultProxyType;
+                let proxyResponse = null;
+                /*let tempUrl = stripUnusedParams(MainUrlByUrl[url]);
                 const match = /(hls|vod)\/(.+?)$/gim.exec(tempUrl);*/
                 switch (proxyType) {
                     case 'TTV LOL':
-                        encodingsM3u8Response = await realFetch('https://api.ttv.lol/playlist/' + CurrentChannelName + '.m3u8%3Fallow_source%3Dtrue'/* + encodeURIComponent(match[2])*/, {headers: {'X-Donate-To': 'https://ttv.lol/donate'}});
+                        proxyResponse = await realFetch('https://api.ttv.lol/playlist/' + CurrentChannelName + '.m3u8%3Fallow_source%3Dtrue'/* + encodeURIComponent(match[2])*/, {headers: {'X-Donate-To': 'https://ttv.lol/donate'}});
                         break;
                     /*case 'Purple Adblock':// Broken...
                         encodingsM3u8Response = await realFetch('https://eu1.jupter.ga/channel/' + CurrentChannelName);*/
                     case 'Falan':// https://greasyfork.org/en/scripts/425139-twitch-ad-fix/code
-                        encodingsM3u8Response = await realFetch(atob('aHR0cHM6Ly9qaWdnbGUuYmV5cGF6YXJpZ3VydXN1LndvcmtlcnMuZGV2') + '/hls/' + CurrentChannelName + '.m3u8%3Fallow_source%3Dtrue'/* + encodeURIComponent(match[2])*/);
+                        proxyResponse = await realFetch('https://jiggle.beypazarigurusu.workers.dev/hls/' + CurrentChannelName + '.m3u8%3Fallow_source%3Dtrue'/* + encodeURIComponent(match[2])*/);
                         break;
                 }
-                if (encodingsM3u8Response && encodingsM3u8Response.status === 200) {
-                    return getStreamForResolution(streamInfo, currentResolution, await encodingsM3u8Response.text(), textStr, fallbackPlayer, realFetch);
+                if (proxyResponse && proxyResponse.status === 200) {
+                    return getStreamForResolution(streamInfo, currentResolution, await proxyResponse.text(), textStr, fallbackPlayer, realFetch);
                 }
             } catch (err) {}
             return textStr;
         }
         
-        var accessTokenResponse = await getAccessToken(CurrentChannelName, fallbackPlayer);
+        const accessTokenResponse = await getAccessToken(CurrentChannelName, fallbackPlayer);
         if (accessTokenResponse.status === 200) {
-            var accessToken = await accessTokenResponse.json();
+            const accessToken = await accessTokenResponse.json();
             try {
-                var urlInfo = new URL('https://usher.ttvnw.net/api/channel/hls/' + CurrentChannelName + '.m3u8' + UsherParams);
+                const urlInfo = new URL('https://usher.ttvnw.net/api/channel/hls/' + CurrentChannelName + '.m3u8' + UsherParams);
                 urlInfo.searchParams.set('sig', accessToken.data.streamPlaybackAccessToken.signature);
                 urlInfo.searchParams.set('token', accessToken.data.streamPlaybackAccessToken.value);
-                var encodingsM3u8Response = await realFetch(urlInfo.href);
-                if (encodingsM3u8Response.status === 200) {
-                    return getStreamForResolution(streamInfo, currentResolution, await encodingsM3u8Response.text(), textStr, fallbackPlayer, realFetch);
+                const fallbackResponse = await realFetch(urlInfo.href);
+                if (fallbackResponse.status === 200) {
+                    return getStreamForResolution(streamInfo, currentResolution, await fallbackResponse.text(), textStr, fallbackPlayer, realFetch);
                 } else {
                     return textStr;
                 }
