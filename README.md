@@ -7,26 +7,17 @@ Twitch Adblock blocks ads on Twitch by switching to an ad-free version of the st
 
 It is recommended to use this extension along with UBlock Origin.
 
-Sourcecode: https://github.com/cleanlock/VideoAdBlockForTwitch
+Sourcecode: https://github.com/LukeTheVirus/VideoAdBlockForTwitch
 
 The original author of this extension is "saucettv". This extension will always stay donation- and referral-link free.
 
-# Available Browsers
-- [Firefox](https://addons.mozilla.org/en-US/firefox/addon/twitch-adblock/)
-- [Chrome](https://chrome.google.com/webstore/detail/twitch-adblock/ljhnljhabgjcihjoihakgdiicdjncpkd?hl=en&authuser=0)
-- [Edge](https://microsoftedge.microsoft.com/addons/detail/twitch-adblock/ebopkbdmemhbmhemdgajhagjgeiffhik)
-
 # Manual Installation Steps for Chrome
-**NOTE: This is NOT RECOMMENDED, you WILL NOT get auto-updates**
-- [Download the latest .ZIP Archive](https://github.com/cleanlock/VideoAdBlockForTwitch/archive/refs/heads/master.zip)
-- Extract the ZIP Archive
+- [Download the latest .ZIP Archive](https://github.com/LukeTheVirus/VideoAdBlockForTwitch/archive/refs/heads/master.zip)
+- Extract the ZIP Archive to somewhere permanent (If the created folder is deleted, these steps need to be repeated)
 - Open up Chrome and in your Web Browser URL, enter: `chrome://extensions`
 - Enable the `Developer Mode` toggle, found in the top right of this view (typically) of the extensions page in your browser.
 - Click `Load unpacked Extension`
 - Navigate into the extracted folder from the ZIP Archive and select the folder `chrome`.
-
-# Discord
-- https://discord.gg/PSgWqf3v8V
 
 # Changelog
 - v5.3.5
@@ -55,3 +46,4 @@ The original author of this extension is "saucettv". This extension will always 
 - [@pwltr](https://github.com/pwltr) (added the GPL-License & helped with updating to Manifest v3)
 - [@HatterTheMadd](https://github.com/hatterthemadd) (helped with updating to Manifest v3)
 - [@kdjmonaghan](https://github.com/kdjmonaghan) (added clearer install instructions for less advanced users)
+- [@LukeTheVirus](https://github.com/LukeTheVirus) Current maintainer on this fork
