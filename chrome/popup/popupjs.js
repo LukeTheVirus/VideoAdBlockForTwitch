@@ -4,18 +4,17 @@ const isChromium = typeof window.chrome !== 'undefined';
 const isFirefox = typeof window.browser !== 'undefined';
 const browser = isFirefox ? window.browser : window.chrome;
 
-var onOff = document.querySelector('input[name=checkbox_ad]');
-var blockingMessage = document.querySelector('input[name=checkbox_ad_msg]');
-var forcedQuality = document.querySelector('select[name=dropdown_forced_quality]');
-var proxy = document.querySelector('select[name=dropdown_proxy]');
-var proxyQuality = document.querySelector('select[name=dropdown_proxy_quality]');
-var adTime = document.querySelector('#ad_time');
-var excludedChannels = document.querySelector('textarea[name=excluded_channels]');
+const onOff = document.querySelector('input[name=checkbox_ad]');
+const blockingMessage = document.querySelector('input[name=checkbox_ad_msg]');
+const forcedQuality = document.querySelector('select[name=dropdown_forced_quality]');
+const proxy = document.querySelector('select[name=dropdown_proxy]');
+const proxyQuality = document.querySelector('select[name=dropdown_proxy_quality]');
+const adTime = document.querySelector('#ad_time');
+const excludedChannels = document.querySelector('textarea[name=excluded_channels]');
 
+const allSettingsElements = [onOff,blockingMessage,forcedQuality,proxy,proxyQuality,excludedChannels];
 
-var allSettingsElements = [onOff,blockingMessage,forcedQuality,proxy,proxyQuality,excludedChannels];
-
-for (var i = 0; i < allSettingsElements.length; i++) {
+for (let i = 0; i < allSettingsElements.length; i++) {
     if (allSettingsElements[i]) {
         allSettingsElements[i].addEventListener('change', function() {
             saveOptions();
@@ -53,7 +52,7 @@ function restoreToggle(name, toggle) {
 function restoreDropdown(name, dropdown) {
     chrome.storage.local.get([name], function(result) {
         if (result[name]) {
-            var items = Array.from(dropdown.options).filter(item => item.text == result[name]);
+            const items = Array.from(dropdown.options).filter(item => item.text == result[name]);
             if (items.length == 1) {
                 dropdown.selectedIndex = items[0].index;
             }
@@ -74,7 +73,7 @@ function restoreAdtime(name, container) {
 
 function restoreTextArray(name, textArea, separator) {
     chrome.storage.local.get([name], function(result) {
-        var loadedArray = result[name];
+        const loadedArray = result[name];
         if (loadedArray.length !== 0) {
             textArea.value = loadedArray.join(separator);
         }
