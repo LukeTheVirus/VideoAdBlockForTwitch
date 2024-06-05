@@ -46,12 +46,14 @@ The original author of this extension is "saucettv". This extension will always 
 - v5.5.0
     - `Added proxies/embeds in order to fight the purple screen "Commercial break"` (thanks to [@pixeltris](https://github.com/pixeltris))
 - v5.5.0
-    - `Updated Logos etc.`)
+    - `Updated Logos etc.`
 - v5.7.0
     - `Added Adblock-Timer` (thanks to [@GODrums](https://github.com/GODrums))
 - v5.8.0
     - `Fixed ads sometimes playing due to multiple workers.`
     - `Fixed livestream not continuing after ads are over.`
+- v5.9.0
+    - `Feature: Exclude channels from ad blocking.` (thanks to [@CDanilo25](https://github.com/CDanilo25))
 
 # Credits
 - [@saucettv](https://github.com/saucettv) (original Author)
@@ -60,3 +62,4 @@ The original author of this extension is "saucettv". This extension will always 
 - [@HatterTheMadd](https://github.com/hatterthemadd) (helped with updating to Manifest v3)
 - [@kdjmonaghan](https://github.com/kdjmonaghan) (added clearer install instructions for less advanced users)
 - [@LukeTheVirus](https://github.com/LukeTheVirus) Current maintainer on this fork
+- [@CDanilo25](https://github.com/CDanilo25) Added exclude channels feature
