@@ -61,5 +61,6 @@ The original author of this extension is "saucettv". This extension will always 
 - [@pwltr](https://github.com/pwltr) (added the GPL-License & helped with updating to Manifest v3)
 - [@HatterTheMadd](https://github.com/hatterthemadd) (helped with updating to Manifest v3)
 - [@kdjmonaghan](https://github.com/kdjmonaghan) (added clearer install instructions for less advanced users)
+- [@cleanlock](https://github.com/cleanlock) Original maintainer befor this fork
 - [@LukeTheVirus](https://github.com/LukeTheVirus) Current maintainer on this fork
 - [@CDanilo25](https://github.com/CDanilo25) Added exclude channels feature

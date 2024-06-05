@@ -37,6 +37,13 @@ function updateSettings() {
     });
 }
 
+window.addEventListener('message', (event) => {
+    if (event.data.type && event.data.type == 'SetTwitchAdTime') {
+        browser.storage.local.set({adTimeTTV: event.data.adtime});
+        console.log("Set ad time to " + event.data.adtime);
+    }
+});
+
 function removeVideoAds() {
     //This stops Twitch from pausing the player when in another tab and an ad shows.
     try {
@@ -198,7 +205,7 @@ function removeVideoAds() {
                     let startTime = adBlockDiv.getAttribute('data-start-time');
                     if (startTime) {
                         startTime = new Date(startTime);
-                        let duration = Math.round((new Date() - startTime) / 1000);
+                        const duration = Math.round((new Date() - startTime) / 1000);
                         
                         if (isNaN(duration) || duration < 1) {
                             console.log(`Duration (${duration}) is invalid, not saving time.`);
