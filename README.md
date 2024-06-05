@@ -11,13 +11,23 @@ Sourcecode: https://github.com/LukeTheVirus/VideoAdBlockForTwitch
 
 The original author of this extension is "saucettv". This extension will always stay donation- and referral-link free.
 
-# Manual Installation Steps for Chrome
-- [Download the latest .ZIP Archive](https://github.com/LukeTheVirus/VideoAdBlockForTwitch/archive/refs/heads/master.zip)
-- Extract the ZIP Archive to somewhere permanent (If the created folder is deleted, these steps need to be repeated)
-- Open up Chrome and in your Web Browser URL, enter: `chrome://extensions`
-- Enable the `Developer Mode` toggle, found in the top right of this view (typically) of the extensions page in your browser.
-- Click `Load unpacked Extension`
-- Navigate into the extracted folder from the ZIP Archive and select the folder `chrome`.
+# Manual Installation Steps
+>### Chrome
+>- [Download the latest .ZIP Archive](https://github.com/LukeTheVirus/VideoAdBlockForTwitch/archive/refs/heads/master.zip)
+>- Extract the ZIP Archive to somewhere permanent (If the created folder is deleted, these steps need to be repeated)
+>- Open up Chrome and in your Web Browser URL, enter: [`chrome://extensions`](chrome://extensions)
+>- Enable the `Developer Mode` toggle, found in the top right of this view (typically) of the extensions page in your browser.
+>- Click `Load unpacked Extension`
+>- Navigate into the extracted folder from the ZIP Archive and select the folder `chrome`.
+>- Thats it!
+
+>### Firefox
+>- [Download the latest .ZIP Archive](https://github.com/LukeTheVirus/VideoAdBlockForTwitch/archive/refs/heads/master.zip)
+>- Extract the ZIP Archive to somewhere permanent (If the created folder is deleted, these steps need to be repeated)
+>- Open up Firefox and in your Web Browser URL, enter: [`about:debugging#/runtime/this-firefox`](about:debugging#/runtime/this-firefox)
+>- Under `Temporary Extensions`, Click `Load Temporary Add-on`
+>- Navigate into the extracted folder from the ZIP Archive and in the folder `firefox`, select `manifest.json`.
+>- Thats it!
 
 # Changelog
 - v5.3.5
