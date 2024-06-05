@@ -113,7 +113,8 @@ function removeVideoAds() {
         ForcedQuality: null,
         ProxyType: null,
         ProxyQuality: null,
-        AdTime: 0
+        AdTime: 0,
+        ExcludedChannels: []
     };
 
     var twitchWorkers = [];
@@ -345,12 +346,12 @@ function removeVideoAds() {
                             const responseText = await response.text();
                             let weaverText = null;
     
-                            weaverText = await processM3U8(url, responseText, realFetch, PLAYER_TYPE_EMBED);
+                            weaverText = await processM3U8(url, responseText, realFetch, PLAYER_TYPE_EMBED, TwitchAdblockSettings.ExcludedChannels);
                             if (weaverText.includes(AdSignifier)) {
-                                weaverText = await processM3U8(url, responseText, realFetch, PLAYER_TYPE_PROXY);
+                                weaverText = await processM3U8(url, responseText, realFetch, PLAYER_TYPE_PROXY, TwitchAdblockSettings.ExcludedChannels);
                             }
                             if (weaverText.includes(AdSignifier)) {
-                                weaverText = await processM3U8(url, responseText, realFetch, PLAYER_TYPE_AUTOPLAY);
+                                weaverText = await processM3U8(url, responseText, realFetch, PLAYER_TYPE_AUTOPLAY, TwitchAdblockSettings.ExcludedChannels);
                             }
     
                             resolve(new Response(weaverText));
@@ -519,7 +520,7 @@ function removeVideoAds() {
         return tempUrl.pathname.substring(1) + tempUrl.search;
     }
     
-    async function processM3U8(url, textStr, realFetch, fallbackPlayer) {
+    async function processM3U8(url, textStr, realFetch, fallbackPlayer, excludedChannels) {
         //Checks the m3u8 for ads and if it finds one, instead returns the m3u8 from the fallback
     
         const streamInfo = StreamInfosByUrl[url];
@@ -530,6 +531,11 @@ function removeVideoAds() {
         }
     
         if (!textStr) {
+            return textStr;
+        }
+        
+        // Channel is excluded by user: ads are visible.
+        if (excludedChannels.includes(streamInfo.ChannelName)) {
             return textStr;
         }
     
