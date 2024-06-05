@@ -720,13 +720,10 @@ function gqlRequest(body, realFetch) {
 }
 
 function doTwitchPlayerTask(isPausePlay, isCheckQuality, isCorrectBuffer, isAutoQuality, setAutoQuality) {
-    //This will do an instant pause/play to return to original quality once the ad is finished.
-    //We also use this function to get the current video player quality set by the user.
-    //We also use this function to quickly pause/play the player when switching tabs to stop delays.
+    // This will do an instant pause/play to return to original quality once the ad is finished.
+    // We also use this function to get the current video player quality set by the user.
+    // We also use this function to quickly pause/play the player when switching tabs to stop delays.
     try {
-        var videoController = null;
-        var videoPlayer = null;
-
         function findReactNode(root, constraint) {
             if (root.stateNode && constraint(root.stateNode)) {
                 return root.stateNode;
@@ -741,15 +738,20 @@ function doTwitchPlayerTask(isPausePlay, isCheckQuality, isCorrectBuffer, isAuto
             }
             return null;
         }
-        var reactRootNode = null;
-        var rootNode = document.querySelector('#root');
-        if (rootNode?._reactRootContainer?._internalRoot?.current) {
-            reactRootNode = rootNode._reactRootContainer._internalRoot.current;
-        }
-        videoPlayer = findReactNode(reactRootNode, node => node.setPlayerActive && node.props && node.props.mediaPlayerInstance);
-        videoPlayer = videoPlayer?.props?.mediaPlayerInstance ? videoPlayer.props.mediaPlayerInstance : null;
 
-        console.debug(videoPlayer);
+        let rootNode = document.querySelector('#root');
+        if (!rootNode) {
+            console.warn('TwitchAdBlock: #root not found');
+            return;
+        }
+        for (const [key, value] of Object.entries(rootNode)) {
+            if (key.startsWith('__reactContainer')) {
+                rootNode = value;
+                break;
+            }
+        }
+        let videoPlayer = findReactNode(rootNode, node => node.setPlayerActive && node.props && node.props.mediaPlayerInstance);
+        videoPlayer = videoPlayer?.props?.mediaPlayerInstance ? videoPlayer.props.mediaPlayerInstance : null;
 
         if (isPausePlay) {
             videoPlayer.pause();
@@ -760,7 +762,7 @@ function doTwitchPlayerTask(isPausePlay, isCheckQuality, isCorrectBuffer, isAuto
             if (typeof videoPlayer.getQuality() == 'undefined') {
                 return;
             }
-            var playerQuality = JSON.stringify(videoPlayer.getQuality());
+            const playerQuality = JSON.stringify(videoPlayer.getQuality());
             if (playerQuality) {
                 return playerQuality;
             } else {
@@ -771,7 +773,7 @@ function doTwitchPlayerTask(isPausePlay, isCheckQuality, isCorrectBuffer, isAuto
             if (typeof videoPlayer.isAutoQualityMode() == 'undefined') {
                 return false;
             }
-            var autoQuality = videoPlayer.isAutoQualityMode();
+            const autoQuality = videoPlayer.isAutoQualityMode();
             if (autoQuality) {
                 videoPlayer.setAutoQualityMode(false);
                 return autoQuality;
@@ -786,8 +788,8 @@ function doTwitchPlayerTask(isPausePlay, isCheckQuality, isCorrectBuffer, isAuto
         //This only happens when switching tabs and is to correct the high latency caused when opening background tabs and going to them at a later time.
         //We check that this is a live stream by the page URL, to prevent vod/clip pause/plays.
         try {
-            var currentPageURL = document.URL;
-            var isLive = true;
+            const currentPageURL = document.URL;
+            let isLive = true;
             if (currentPageURL.includes('videos/') || currentPageURL.includes('clip/')) {
                 isLive = false;
             }
@@ -813,7 +815,7 @@ var localDeviceID = null;
 localDeviceID = window.localStorage.getItem('local_copy_unique_id');
 
 function hookFetch() {
-    var realFetch = window.fetch;
+    const realFetch = window.fetch;
     window.fetch = function(url, init, ...args) {
         if (typeof url === 'string') {
             //Check if squad stream.
