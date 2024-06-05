@@ -28,7 +28,7 @@ function saveOptions() {
     //chrome.storage.local.set({forcedQualityTTV: forcedQuality.options[forcedQuality.selectedIndex].text});
     chrome.storage.local.set({proxyTTV: proxy.options[proxy.selectedIndex].text});
     chrome.storage.local.set({proxyQualityTTV: proxyQuality.options[proxyQuality.selectedIndex].text});
-    chrome.storage.local.set({excludedChannelsTTV: excludedChannels.value.replace(/\r?\n|\r|\s/g, "").split(";")});
+    chrome.storage.local.set({excludedChannelsTTV: excludedChannels.value.replace(/\r|\s/g, "").replace("https://www.twitch.tv/", "").split("\n")});
 }
 
 function restoreOptions() {
@@ -38,7 +38,7 @@ function restoreOptions() {
     restoreDropdown('proxyTTV', proxy);
     restoreDropdown('proxyQualityTTV', proxyQuality);
     restoreAdtime('adTimeTTV', adTime);
-    restoreTextArray('excludedChannelsTTV', excludedChannels, ';');
+    restoreTextArray('excludedChannelsTTV', excludedChannels, '\n');
 }
 
 function restoreToggle(name, toggle) {
@@ -74,7 +74,7 @@ function restoreAdtime(name, container) {
 function restoreTextArray(name, textArea, separator) {
     chrome.storage.local.get([name], function(result) {
         const loadedArray = result[name];
-        if (loadedArray.length !== 0) {
+        if (loadedArray?.join) {
             textArea.value = loadedArray.join(separator);
         }
     });

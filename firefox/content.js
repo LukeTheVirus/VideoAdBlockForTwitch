@@ -3,12 +3,14 @@
 const isFirefox = !chrome.app;
 
 function updateSettings() {
-    browser.storage.local.get(['blockingMessageTTV','forcedQualityTTV','proxyTTV','proxyQualityTTV']).then(result => {
+    browser.storage.local.get(['blockingMessageTTV','forcedQualityTTV','proxyTTV','proxyQualityTTV', 'adTimeTTV', 'excludedChannelsTTV']).then(result => {
         var settings = {
             BannerVisible: true,
             ForcedQuality: null,
             ProxyType: null,
             ProxyQuality: null,
+            AdTime: 0,
+            ExcludedChannels: []
         };
         if (result.blockingMessageTTV === 'true' || result.blockingMessageTTV === 'false') {
             settings.BannerVisible = result.blockingMessageTTV === 'true';
@@ -21,6 +23,12 @@ function updateSettings() {
         }
         if (result.proxyQualityTTV) {
             settings.ProxyQuality = result.proxyQualityTTV;
+        }
+        if (result.adTimeTTV) {
+            settings.AdTime = result.adTimeTTV;
+        }
+        if (result.excludedChannelsTTV) {
+            settings.ExcludedChannels = result.excludedChannelsTTV;
         }
         postMessage({
             type: 'SetTwitchAdblockSettings',
